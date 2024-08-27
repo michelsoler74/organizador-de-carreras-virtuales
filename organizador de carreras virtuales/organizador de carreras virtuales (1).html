@@ -1,0 +1,467 @@
+<html><head><base href="https://carreras-virtuales.com/"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Organizador de Carreras Virtuales</title><style>
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(45deg, #1a2a6c, #b21f1f, #fdbb2d);
+  color: #fff;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.section {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+select, input[type="text"], input[type="date"], input[type="time"], input[type="number"], button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.item {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.item:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.platform-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.tab.active {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+}
+
+th {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+</style></head><body>
+<div class="container">
+  <h1>Organizador de Carreras Virtuales</h1>
+  
+  <div class="tab-container">
+    <button class="tab active" data-tab="races">Carreras</button>
+    <button class="tab" data-tab="pilots">Pilotos</button>
+    <button class="tab" data-tab="results">Resultados</button>
+    <button class="tab" data-tab="championship">Campeonato</button>
+  </div>
+
+  <div id="races" class="tab-content active">
+    <div class="section">
+      <h2>Selecciona la Plataforma</h2>
+      <select id="platformSelect">
+        <option value="PS4">PS4</option>
+        <option value="PS5">PS5</option>
+        <option value="XBOX">XBOX</option>
+        <option value="PC">PC</option>
+        <option value="NINTENDO">NINTENDO</option>
+        <option value="MULTIPLATAFORMA">MULTIPLATAFORMA</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <h2>Crear Nueva Carrera</h2>
+      <input type="text" id="raceName" placeholder="Nombre de la carrera">
+      <select id="raceType">
+        <option value="">Selecciona el tipo de carrera</option>
+        <option value="Formula 1">Formula 1</option>
+        <option value="Rally">Rally</option>
+        <option value="GT">GT</option>
+        <option value="Karting">Karting</option>
+        <option value="Otro">Otro</option>
+      </select>
+      <input type="date" id="raceDate">
+      <input type="time" id="raceTime">
+      <button id="createRace">Crear Carrera</button>
+    </div>
+
+    <div class="section">
+      <h2>Carreras Programadas</h2>
+      <ul id="raceList"></ul>
+    </div>
+  </div>
+
+  <div id="pilots" class="tab-content">
+    <div class="section">
+      <h2>Registrar Piloto</h2>
+      <input type="text" id="pilotName" placeholder="Nombre del piloto">
+      <input type="text" id="pilotTeam" placeholder="Equipo del piloto">
+      <button id="registerPilot">Registrar Piloto</button>
+    </div>
+
+    <div class="section">
+      <h2>Pilotos Registrados</h2>
+      <ul id="pilotList"></ul>
+    </div>
+  </div>
+
+  <div id="results" class="tab-content">
+    <div class="section">
+      <h2>Añadir Resultados</h2>
+      <select id="resultRace"></select>
+      <select id="resultPilot"></select>
+      <input type="number" id="resultPosition" placeholder="Posición final">
+      <input type="number" id="resultPoints" placeholder="Puntos obtenidos">
+      <button id="addResult">Añadir Resultado</button>
+    </div>
+
+    <div class="section">
+      <h2>Resultados de Carreras</h2>
+      <ul id="resultList"></ul>
+    </div>
+  </div>
+
+  <div id="championship" class="tab-content">
+    <div class="section">
+      <h2>Clasificación del Campeonato</h2>
+      <table id="championshipTable">
+        <thead>
+          <tr>
+            <th>Posición</th>
+            <th>Piloto</th>
+            <th>Equipo</th>
+            <th>Puntos</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Elementos del DOM
+  const platformSelect = document.getElementById('platformSelect');
+  const raceName = document.getElementById('raceName');
+  const raceType = document.getElementById('raceType');
+  const raceDate = document.getElementById('raceDate');
+  const raceTime = document.getElementById('raceTime');
+  const createRaceBtn = document.getElementById('createRace');
+  const raceList = document.getElementById('raceList');
+  const pilotName = document.getElementById('pilotName');
+  const pilotTeam = document.getElementById('pilotTeam');
+  const registerPilotBtn = document.getElementById('registerPilot');
+  const pilotList = document.getElementById('pilotList');
+  const resultRace = document.getElementById('resultRace');
+  const resultPilot = document.getElementById('resultPilot');
+  const resultPosition = document.getElementById('resultPosition');
+  const resultPoints = document.getElementById('resultPoints');
+  const addResultBtn = document.getElementById('addResult');
+  const resultList = document.getElementById('resultList');
+  const championshipTable = document.getElementById('championshipTable').querySelector('tbody');
+
+  // Datos
+  let races = JSON.parse(localStorage.getItem('races')) || [];
+  let pilots = JSON.parse(localStorage.getItem('pilots')) || [];
+  let results = JSON.parse(localStorage.getItem('results')) || [];
+
+  // Funciones de actualización de listas
+  function updateRaceList() {
+    raceList.innerHTML = '';
+    races.forEach((race, index) => {
+      const li = document.createElement('li');
+      li.className = 'item fade-in';
+      li.innerHTML = `
+        <div>
+          <strong>${race.name}</strong><br>
+          Plataforma: ${race.platform}<br>
+          Tipo: ${race.type}<br>
+          Fecha: ${race.date} - Hora: ${race.time}
+        </div>
+        <button class="delete-btn" data-index="${index}">Eliminar</button>
+      `;
+      raceList.appendChild(li);
+    });
+    localStorage.setItem('races', JSON.stringify(races));
+    updateResultRaceSelect();
+  }
+
+  function updatePilotList() {
+    pilotList.innerHTML = '';
+    pilots.forEach((pilot, index) => {
+      const li = document.createElement('li');
+      li.className = 'item fade-in';
+      li.innerHTML = `
+        <div>
+          <strong>${pilot.name}</strong><br>
+          Equipo: ${pilot.team}
+        </div>
+        <button class="delete-btn" data-index="${index}">Eliminar</button>
+      `;
+      pilotList.appendChild(li);
+    });
+    localStorage.setItem('pilots', JSON.stringify(pilots));
+    updateResultPilotSelect();
+  }
+
+  function updateResultList() {
+    resultList.innerHTML = '';
+    results.forEach((result, index) => {
+      const li = document.createElement('li');
+      li.className = 'item fade-in';
+      li.innerHTML = `
+        <div>
+          <strong>${result.race}</strong><br>
+          Piloto: ${result.pilot}<br>
+          Posición: ${result.position}<br>
+          Puntos: ${result.points}
+        </div>
+        <button class="delete-btn" data-index="${index}">Eliminar</button>
+      `;
+      resultList.appendChild(li);
+    });
+    localStorage.setItem('results', JSON.stringify(results));
+    updateChampionship();
+  }
+
+  function updateResultRaceSelect() {
+    resultRace.innerHTML = '<option value="">Selecciona una carrera</option>';
+    races.forEach(race => {
+      const option = document.createElement('option');
+      option.value = race.name;
+      option.textContent = race.name;
+      resultRace.appendChild(option);
+    });
+  }
+
+  function updateResultPilotSelect() {
+    resultPilot.innerHTML = '<option value="">Selecciona un piloto</option>';
+    pilots.forEach(pilot => {
+      const option = document.createElement('option');
+      option.value = pilot.name;
+      option.textContent = pilot.name;
+      resultPilot.appendChild(option);
+    });
+  }
+
+  function updateChampionship() {
+    const championship = {};
+    results.forEach(result => {
+      if (!championship[result.pilot]) {
+        championship[result.pilot] = { points: 0, team: '' };
+      }
+      championship[result.pilot].points += parseInt(result.points);
+      championship[result.pilot].team = pilots.find(p => p.name === result.pilot)?.team || '';
+    });
+
+    const sortedChampionship = Object.entries(championship)
+      .sort((a, b) => b[1].points - a[1].points)
+      .map(([pilot, data], index) => ({ position: index + 1, pilot, ...data }));
+
+    championshipTable.innerHTML = '';
+    sortedChampionship.forEach(entry => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${entry.position}</td>
+        <td>${entry.pilot}</td>
+        <td>${entry.team}</td>
+        <td>${entry.points}</td>
+      `;
+      championshipTable.appendChild(tr);
+    });
+  }
+
+  // Event Listeners
+  createRaceBtn.addEventListener('click', () => {
+    const newRace = {
+      platform: platformSelect.value,
+      name: raceName.value,
+      type: raceType.value,
+      date: raceDate.value,
+      time: raceTime.value
+    };
+    races.push(newRace);
+    updateRaceList();
+    raceName.value = '';
+    raceType.value = '';
+    raceDate.value = '';
+    raceTime.value = '';
+  });
+
+  registerPilotBtn.addEventListener('click', () => {
+    const newPilot = {
+      name: pilotName.value,
+      team: pilotTeam.value
+    };
+    pilots.push(newPilot);
+    updatePilotList();
+    pilotName.value = '';
+    pilotTeam.value = '';
+  });
+
+  addResultBtn.addEventListener('click', () => {
+    const newResult = {
+      race: resultRace.value,
+      pilot: resultPilot.value,
+      position: resultPosition.value,
+      points: resultPoints.value
+    };
+    results.push(newResult);
+    updateResultList();
+    resultRace.value = '';
+    resultPilot.value = '';
+    resultPosition.value = '';
+    resultPoints.value = '';
+  });
+
+  raceList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+      const index = e.target.getAttribute('data-index');
+      races.splice(index, 1);
+      updateRaceList();
+    }
+  });
+
+  pilotList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+      const index = e.target.getAttribute('data-index');
+      pilots.splice(index, 1);
+      updatePilotList();
+    }
+  });
+
+  resultList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+      const index = e.target.getAttribute('data-index');
+      results.splice(index, 1);
+      updateResultList();
+    }
+  });
+
+  // Tabs
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const tabId = tab.getAttribute('data-tab');
+      
+      tabs.forEach(t => t.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+      
+      tab.classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+
+  // Inicialización
+  updateRaceList();
+  updatePilotList();
+  updateResultList();
+  updateChampionship();
+});
+</script>
+</body></html>
