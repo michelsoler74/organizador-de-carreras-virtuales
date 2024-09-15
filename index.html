@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Meta etiquetas necesarias para codificación y viewport responsivo -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Título de la página -->
+    <title>Organizador de Carreras Virtuales</title>
+
+    <!-- Enlace al archivo de estilos CSS -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Título principal -->
+      <h1>Organizador de Carreras Virtuales</h1>
+
+      <!-- Pestañas de navegación -->
+      <div class="tab-container">
+        <button class="tab active" data-tab="races">Carreras</button>
+        <button class="tab" data-tab="pilots">Pilotos</button>
+        <button class="tab" data-tab="results">Resultados</button>
+        <button class="tab" data-tab="championship">Campeonato</button>
+      </div>
+
+      <!-- Sección de carreras -->
+      <div id="races" class="tab-content active">
+        <!-- Selección de plataforma para crear una carrera -->
+        <div class="section">
+          <h2>Selecciona la Plataforma</h2>
+          <select id="platformSelect">
+            <option value="PS4">PS4</option>
+            <option value="PS5">PS5</option>
+            <option value="XBOX">XBOX</option>
+            <option value="PC">PC</option>
+            <option value="NINTENDO">NINTENDO</option>
+            <option value="MULTIPLATAFORMA">MULTIPLATAFORMA</option>
+          </select>
+        </div>
+
+        <!-- Crear una nueva carrera -->
+        <div class="section">
+          <h2>Crear Nueva Carrera</h2>
+          <input type="text" id="raceName" placeholder="Nombre de la carrera" />
+          <select id="raceType">
+            <option value="">Selecciona el tipo de carrera</option>
+            <option value="Formula 1">Formula 1</option>
+            <option value="Rally">Rally</option>
+            <option value="GT">GT</option>
+            <option value="Karting">Karting</option>
+            <option value="Otro">Otro</option>
+          </select>
+          <input type="date" id="raceDate" />
+          <input type="time" id="raceTime" />
+          <button id="createRace">Crear Carrera</button>
+        </div>
+
+        <!-- Listado de carreras programadas -->
+        <div class="section">
+          <h2>Carreras Programadas</h2>
+          <ul id="raceList"></ul>
+        </div>
+      </div>
+
+      <!-- Sección de pilotos -->
+      <div id="pilots" class="tab-content">
+        <div class="section">
+          <h2>Registrar Piloto</h2>
+          <input type="text" id="pilotName" placeholder="Nombre del piloto" />
+          <input type="text" id="pilotTeam" placeholder="Equipo del piloto" />
+          <button id="registerPilot">Registrar Piloto</button>
+        </div>
+
+        <!-- Listado de pilotos registrados -->
+        <div class="section">
+          <h2>Pilotos Registrados</h2>
+          <ul id="pilotList"></ul>
+        </div>
+      </div>
+
+      <!-- Sección de resultados -->
+      <div id="results" class="tab-content">
+        <div class="section">
+          <h2>Añadir Resultados</h2>
+          <select id="resultRace"></select>
+          <select id="resultPilot"></select>
+          <input
+            type="number"
+            id="resultPosition"
+            placeholder="Posición final"
+          />
+          <input
+            type="number"
+            id="resultPoints"
+            placeholder="Puntos obtenidos"
+          />
+          <button id="addResult">Añadir Resultado</button>
+        </div>
+
+        <!-- Listado de resultados -->
+        <div class="section">
+          <h2>Resultados de Carreras</h2>
+          <ul id="resultList"></ul>
+        </div>
+      </div>
+
+      <!-- Sección de campeonatos -->
+      <div id="championship" class="tab-content">
+        <div class="section">
+          <h2>Clasificación del Campeonato</h2>
+          <!-- Tabla para mostrar la clasificación del campeonato -->
+          <table id="championshipTable">
+            <thead>
+              <tr>
+                <th>Posición</th>
+                <th>Piloto</th>
+                <th>Equipo</th>
+                <th>Puntos</th>
+              </tr>
+            </thead>
+            <tbody id="championshipTableBody">
+              <!-- Aquí se llenarán los datos del campeonato -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enlace al archivo JavaScript -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
